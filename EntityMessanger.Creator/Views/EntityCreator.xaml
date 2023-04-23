@@ -1,0 +1,89 @@
+﻿<UserControl x:Class="EntityMessanger.Creator.Views.EntityCreator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:validationRules="clr-namespace:EntityMessanger.Creator.ValidationRules"
+             mc:Ignorable="d" 
+             d:DesignHeight="250" 
+             d:DesignWidth="350">
+    <StackPanel>
+        <!-- Header -->
+        <TextBlock
+            HorizontalAlignment="Center"
+            FontSize="24"
+            Text="Add Entity"
+            TextAlignment="Center" />
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Entity Name:" Margin="10"/>
+            <TextBox x:Name="txtEntityName" 
+                 Grid.Row="0" 
+                 Grid.Column="1" 
+                 Margin="5" 
+                 Width="150">
+                <TextBox.Text>
+                    <Binding Path="Name" 
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged" 
+                             ValidatesOnDataErrors="true"
+                             NotifyOnValidationError="true">
+                        <Binding.ValidationRules>
+                            <validationRules:NameValidationRule />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="X Coordinate:" Margin="10"/>
+            <TextBox x:Name="txtX" 
+                 Grid.Row="1" Grid.Column="1" Margin="5" Width="150">
+                <TextBox.Text>
+                    <Binding Path="XCoordinate" 
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged" 
+                             ValidatesOnDataErrors="true"
+                             NotifyOnValidationError="true">
+                        <Binding.ValidationRules>
+                            <validationRules:DoubleRangeValidationRule MinValue="1" MaxValue="850" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Y Coordinate:" Margin="10"/>
+            <TextBox x:Name="txtY" 
+                 Grid.Row="2" Grid.Column="1" Margin="5" Width="150">
+                <TextBox.Text>
+                    <Binding Path="YCoordinate" 
+                             Mode="TwoWay"
+                             UpdateSourceTrigger="PropertyChanged" 
+                             ValidatesOnDataErrors="true"
+                             NotifyOnValidationError="true">
+                        <Binding.ValidationRules>
+                            <validationRules:DoubleRangeValidationRule MinValue="1" MaxValue="500" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+            <Button x:Name="btnSend" 
+                Grid.Row="3" 
+                Grid.Column="1" 
+                Margin="5" 
+                Width="100" 
+                Height="30" 
+                Content="Send Entity" 
+                Command="{Binding SendEntityCommand}"/>
+        </Grid>
+    </StackPanel>
+</UserControl>
